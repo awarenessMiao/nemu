@@ -46,18 +46,25 @@ static int cmd_si(char *args) {
   return 0;
 }
 
+static int cmd_info(char* args){
+  if(args==NULL)
+    return 0;
+  if(args[0]=='r')
+    isa_reg_display();  
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
   int (*handler) (char *);
-} cmd_table [] = {
-  { "help", "Display informations about all supported commands", cmd_help },
-  { "c", "Continue the execution of the program", cmd_c },
-  { "q", "Exit NEMU", cmd_q },
-  { "si","execute steps cmd",cmd_si},
-
-  /* TODO: Add more commands */
-
+} cmd_table[] = {
+    {"help", "Display informations about all supported commands", cmd_help},
+    {"c", "Continue the execution of the program", cmd_c},
+    {"q", "Exit NEMU", cmd_q},
+    {"si", "execute steps cmd", cmd_si},
+    {"info", "prinf status of cpu", cmd_info},
+/* TODO: Add more commands */
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
