@@ -40,13 +40,9 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
-  if(args!=NULL){
-    int step = atoi(args);
-    step = step <= 0 ? 1 : step;
-    cpu_exec(step);
-  }
-  else
-    cpu_exec(1);
+  int step = args ? atoi(args) : 1;
+  step = step <= 0 ? 1 : step;
+  cpu_exec(step);
   return 0;
 }
 
