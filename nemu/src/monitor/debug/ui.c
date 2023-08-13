@@ -61,7 +61,7 @@ static int cmd_x(char* args){
   vaddr_t addr;
   sscanf(args, "%d %x",&len, &addr);
   for (int i=0; i<len;i++)
-    printf("%x\n",vaddr_read(addr+i, 1));
+    printf("%x ",vaddr_read(addr+i, 1));
 
   return 0;
 }
