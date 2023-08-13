@@ -6,6 +6,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <memory/vaddr.h>
+
 void cpu_exec(uint64_t);
 int is_batch_mode();
 
@@ -54,6 +56,16 @@ static int cmd_info(char* args){
   return 0;
 }
 
+static int cmd_x(char* args){
+  int len;
+  vaddr_t addr;
+  sscanf(args, "%d %x",&len, &addr);
+  for (int i=0; i<len;i++)
+    printf("%x\n",vaddr_read(addr+i, 1));
+
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -64,6 +76,8 @@ static struct {
     {"q", "Exit NEMU", cmd_q},
     {"si", "execute steps cmd", cmd_si},
     {"info", "prinf status of cpu", cmd_info},
+    {"x","scan the memory", cmd_x},
+
 /* TODO: Add more commands */
 };
 
