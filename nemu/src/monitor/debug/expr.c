@@ -139,7 +139,7 @@ int find_main_op(int p,int q){
       i=j;
     }
     else if(tokens[i].type=='+'||tokens[i].type=='-'||
-    tokens[i].type=='*'||tokens[i].type=='*')
+    tokens[i].type=='*'||tokens[i].type=='/')
     {
       ops[nr_ops++]=i;
     }
