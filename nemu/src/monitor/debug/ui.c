@@ -86,7 +86,7 @@ static int cmd_ptest(char*args){
   {
     bool success;
     word_t res_nemu=expr(testexpr,&success);
-    printf("\033[34m[Test %03d]: %s, result=%u, nemu=%u, expr=%s\n", cnt++, res == res_nemu ? "\033[32msuccess\033[34m" : "\033[31m   fail\033[34m", res, res_nemu, testexpr);
+    printf("\033[34m[Test %03d]: %s, result=%u, nemu=%u, expr=%s\n", cnt++, success && (res == res_nemu) ? "\033[32msuccess\033[34m" : "\033[31m   fail\033[34m", res, res_nemu, testexpr);
     // cmd_p(exprr);
     // printf("number %d test, res = %u\n",i+1,res);
     // printf("####################\n");

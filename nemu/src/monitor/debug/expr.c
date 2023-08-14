@@ -87,7 +87,8 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        Assert(nr_token < 32, "expression is too long");
+        if (nr_token >= 32)
+          return false;
 
         switch (rules[i].token_type) {
           case TK_NUM:           
@@ -158,27 +159,37 @@ int find_main_op(int p,int q){
   return op;
 }
 
-word_t eval(int p,int q){
-  Assert(p <= q, "invalid expression:too");
+word_t eval(int p,int q, bool *success){
+  *success = true;
+  if (p > q || (p == q && tokens[p].type != TK_NUM)) {
+    *success = false;
+    return 0;
+  }
   if(p == q){
-    Assert(tokens[p].type == TK_NUM, "not a number");
     // Log("find a number %s", tokens[p].str);
     return atoi(tokens[p].str);
   }
   else if(check_parentheses(p,q)==true){
-    return eval(p+1,q-1);
+    return eval(p+1,q-1,success);
   }
   else{
     int op = find_main_op(p,q);
     int op_type=tokens[op].type;
-    word_t val1 = eval(p,op-1);
-    word_t val2 = eval(op+1,q);
+    bool success1,success2;
+    word_t val1 = eval(p,op-1,&success1);
+    word_t val2 = eval(op+1,q,&success2);
+    if (success1 == false || success2 == false) {
+      *success = false;
+      return 0;
+    }
     switch(op_type){
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
-      case '/': return val1 / val2;
-      default:assert(0);
+      case '/': if (val2 != 0) return val1 / val2;
+      default:
+        *success = false;
+        return 0;
     }
   }
 }
@@ -190,8 +201,6 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-
-  word_t evaluation=eval(0,nr_token-1);
-  *success = true;
+  word_t evaluation=eval(0,nr_token-1,success);
   return evaluation;
 }
