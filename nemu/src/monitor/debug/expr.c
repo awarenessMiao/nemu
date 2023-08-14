@@ -152,7 +152,7 @@ int find_main_op(int p,int q){
 }
 
 int eval(int p,int q){
-  Assert(p <= q, "invalid expression");
+  Assert(p <= q, "invalid expression:too");
   if(p == q){
     Assert(tokens[p].type == TK_NUM, "not a number");
     return atoi(tokens[p].str);
