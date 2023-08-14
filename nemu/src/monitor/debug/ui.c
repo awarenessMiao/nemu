@@ -89,7 +89,7 @@ static int cmd_ptest(char*args){
     Log("Test %03d: %s, result=%u, nemu=%u, expr=%s", cnt++, res == res_nemu ? "success" : "   fail", res, res_nemu, testexpr);
     // cmd_p(exprr);
     // printf("number %d test, res = %u\n",i+1,res);
-    printf("####################\n");
+    // printf("####################\n");
   }
   fclose(fp);
   return 0;
