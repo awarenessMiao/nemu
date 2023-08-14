@@ -22,7 +22,7 @@ uint32_t choose(uint32_t n)
 }
 
 void gen_num(){
-  sprintf(buf+strlen(buf),"%u",rand()%100);
+  sprintf(buf+strlen(buf),"%u",rand());
 }
 void gen(char ch){
   // printf("before gen(): %s\n", buf);
@@ -40,11 +40,11 @@ void gen_rand_op(){
 }
 
 static inline void gen_rand_expr() {
-  if(strlen(buf)>10) {
+  if(strlen(buf)>100) {
     gen('1');
     return;
   }
-  switch(choose(5))
+  switch(choose(3))
   {
     case 0:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
     case 1:gen('(');gen_rand_expr();gen(')');break;

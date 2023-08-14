@@ -60,7 +60,9 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+#define NUM_TOKENS 1024
+
+static Token tokens[NUM_TOKENS] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -87,7 +89,7 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        if (nr_token >= 32)
+        if (nr_token >= NUM_TOKENS)
           return false;
 
         switch (rules[i].token_type) {
@@ -132,7 +134,7 @@ bool check_parentheses(int p,int q){
 
 int find_main_op(int p,int q){
   int op = -1;
-  int ops[32];
+  int ops[NUM_TOKENS];
   int nr_ops = 0;
   for(int i=p;i<=q;i++){
     if(tokens[i].type=='(')
