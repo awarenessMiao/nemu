@@ -72,7 +72,7 @@ static int cmd_p(char* args){
   if(success==true)
     printf("the value is %u\n", ret);
   else
-    printf("invalid expression!");
+    printf("invalid expression!\n");
   return 0;
 }
 

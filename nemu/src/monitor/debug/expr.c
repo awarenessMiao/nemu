@@ -186,7 +186,7 @@ int eval(int p,int q, bool *success){
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
-      case '/': if (val2 != 0) return val1 / val2;
+      case '/': return val1 / val2;
       default:
         *success = false;
         return 0;
