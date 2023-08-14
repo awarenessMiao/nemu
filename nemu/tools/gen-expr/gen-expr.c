@@ -30,11 +30,11 @@ void gen(char ch){
   // printf("after gen(): %s\n", buf);
 }
 void gen_rand_op(){
-  switch(choose(4))
+  switch(choose(7))
   {
-    case 0:gen('+');break;
-    case 1:gen('-');break;
-    case 2:gen('*');break;
+    case 0:case 4:gen('+');break;
+    case 1:case 5:gen('-');break;
+    case 2:case 6:gen('*');break;
     case 3:gen('/');break;
   }
 }
