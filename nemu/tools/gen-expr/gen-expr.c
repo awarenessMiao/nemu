@@ -40,15 +40,15 @@ void gen_rand_op(){
 }
 
 static inline void gen_rand_expr() {
-  if(strlen(buf)>20) {
+  if(strlen(buf)>10) {
     gen('1');
     return;
   }
   switch(choose(3))
   {
-    case 0:gen_num();break;
+    case 0:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
     case 1:gen('(');gen_rand_expr();gen(')');break;
-    default:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
+    default:gen_num();break;
   }
 }
 
