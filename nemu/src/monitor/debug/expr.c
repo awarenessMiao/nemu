@@ -170,7 +170,7 @@ int find_main_op(int p,int q){
 
 int eval(int p,int q, bool *success){
   *success = true;
-  if (p > q || (p == q && tokens[p].type != TK_NUM)) {
+  if (p > q) {
     *success = false;
     return 0;
   }
@@ -181,11 +181,13 @@ int eval(int p,int q, bool *success){
       case TK_NUM: sscanf(tokens[p].str,"%d",&res); break;
       case TK_HEX: sscanf(tokens[p].str,"%x",&res); break;
       case TK_REG: 
-      {
         res = isa_reg_str2val(tokens[p].str+1,success);
         if(*success==false)
           return 0;
-      }
+        break;
+      default:
+        *success = false;
+        return 0;
     }
     return res;
   }
