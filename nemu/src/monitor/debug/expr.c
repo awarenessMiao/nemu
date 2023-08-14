@@ -154,7 +154,7 @@ int find_main_op(int p,int q){
   op = (op == -1 ? ops[nr_ops-1] : op);
   // printf("#\n");
   Log("find main op %c", tokens[op].type);
-  return op==-1?ops[nr_ops-1]:op;
+  return op;
 }
 
 word_t eval(int p,int q){
