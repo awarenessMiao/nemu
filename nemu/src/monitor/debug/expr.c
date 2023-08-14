@@ -151,6 +151,7 @@ int find_main_op(int p,int q){
       op = ops[i];
     // printf("%c ",tokens[ops[i]].type);
   }
+  op = (op == -1 ? ops[nr_ops-1] : op);
   // printf("#\n");
   Log("find main op %c", tokens[op].type);
   return op==-1?ops[nr_ops-1]:op;
