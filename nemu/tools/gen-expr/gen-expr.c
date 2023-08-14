@@ -16,8 +16,40 @@ static char *code_format =
 "  return 0; "
 "}";
 
+uint32_t choose(uint32_t n)
+{
+  return rand()%n;
+}
+
+void gen_num(){
+  sprintf(buf+strlen(buf),"%u",rand()%100);
+}
+void gen(char ch){
+  // printf("before gen(): %s\n", buf);
+  sprintf(buf+strlen(buf),"%c",ch);
+  // printf("after gen(): %s\n", buf);
+}
+void gen_rand_op(){
+  switch(choose(4))
+  {
+    case 0:gen('+');break;
+    case 1:gen('-');break;
+    case 2:gen('*');break;
+    case 3:gen('/');break;
+  }
+}
+
 static inline void gen_rand_expr() {
-  buf[0] = '\0';
+  if(strlen(buf)>100) {
+    gen('1');
+    return;
+  }
+  switch(choose(3))
+  {
+    case 0:gen_num();break;
+    case 1:gen('(');gen_rand_expr();gen(')');break;
+    default:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -29,9 +61,12 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
+    buf[0]='\0';
     gen_rand_expr();
 
     sprintf(code_buf, code_format, buf);
+
+    // printf("%s\n", buf);
 
     FILE *fp = fopen("/tmp/.code.c", "w");
     assert(fp != NULL);

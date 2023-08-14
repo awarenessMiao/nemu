@@ -147,10 +147,10 @@ int find_main_op(int p,int q){
   for(int i=0;i<nr_ops;i++){
     if(tokens[ops[i]].type=='+'||tokens[ops[i]].type=='-')
       op = ops[i];
-    printf("%c ",tokens[ops[i]].type);
+    // printf("%c ",tokens[ops[i]].type);
   }
-  printf("#\n");
-  Log("find main op %c", tokens[op].type);
+  // printf("#\n");
+  // Log("find main op %c", tokens[op].type);
   return op==-1?ops[nr_ops-1]:op;
 }
 
@@ -185,9 +185,8 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  
-  int p=0;int q=nr_token-1;
-  int evaluation=eval(p,q);
+
+  int evaluation=eval(0,nr_token-1);
   *success = true;
   return evaluation;
 
