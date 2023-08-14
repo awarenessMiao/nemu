@@ -147,7 +147,7 @@ int find_main_op(int p,int q){
   for(int i=0;i<nr_ops;i++){
     if(tokens[ops[i]].type=='+'||tokens[ops[i]].type=='-')
       op = ops[i];
-    printf("%c ",ops[i]);
+    printf("%c ",tokens[ops[i]].type);
   }
   printf("#\n");
   Log("find main op %c", tokens[op].type);
