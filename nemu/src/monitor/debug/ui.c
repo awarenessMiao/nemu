@@ -59,9 +59,9 @@ static int cmd_info(char* args){
 static int cmd_x(char* args){
   int len;
   vaddr_t addr;
-  sscanf(args, "%d %lx",&len, &addr);
+  sscanf(args, "%d %x",&len, &addr);
   for (int i=0; i<len;i++)
-    printf("%02lx ",vaddr_read(addr+i, 1));
+    printf("%02x ",vaddr_read(addr+i, 1));
   printf("\n");
   return 0;
 }
