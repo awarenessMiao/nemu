@@ -76,6 +76,22 @@ static int cmd_p(char* args){
   return 0;
 }
 
+static int cmd_ptest(char*args){
+  FILE *fp = fopen("tools/gen-expr/input", "r");
+  assert(fp != NULL);
+  uint32_t res;
+  char exprr[1000];
+  for(int i=0;i<100;i++)
+  {
+    if(fscanf(fp,"%u %s", &res, exprr));
+    cmd_p(exprr);
+    printf("number %d test, res = %u\n",i,res);
+    printf("####################\n");
+  }
+  fclose(fp);
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -88,6 +104,7 @@ static struct {
     {"info", "prinf status of cpu", cmd_info},
     {"x","scan the memory", cmd_x},
     {"p","get value of an expression",cmd_p},
+    {"ptest","test the ceshi examples",cmd_ptest},
 /* TODO: Add more commands */
 };
 

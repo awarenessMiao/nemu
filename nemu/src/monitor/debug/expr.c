@@ -87,6 +87,8 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
+        Assert(nr_token < 32, "expression is too long");
+
         switch (rules[i].token_type) {
           case TK_NUM:           
             if(substr_len>31)

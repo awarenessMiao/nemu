@@ -40,7 +40,7 @@ void gen_rand_op(){
 }
 
 static inline void gen_rand_expr() {
-  if(strlen(buf)>100) {
+  if(strlen(buf)>50) {
     gen('1');
     return;
   }
