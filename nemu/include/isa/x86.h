@@ -34,7 +34,7 @@ typedef struct {
       rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
     };
   };
-
+  
   vaddr_t pc;
 } x86_CPU_state;
 

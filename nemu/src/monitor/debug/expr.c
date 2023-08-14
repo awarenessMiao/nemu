@@ -7,7 +7,8 @@
 #include <stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM
+  TK_NOTYPE = 256, TK_EQ, TK_NUM , TK_HEX ,
+  TK_REG , TK_AND , TK_NEQ
 
   /* TODO: Add more token types */
 
@@ -25,12 +26,17 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
+  {"0x[0-9]+",TK_HEX},
   {"[0-9]+",TK_NUM},    // number
   {"-",'-'},
   {"\\*",'*'},
   {"/",'/'},
   {"\\(",'('},
   {"\\)",')'},
+  {"\\$[a-z]+",TK_REG},
+  {"&&",TK_AND},
+  {"!=",TK_NEQ},
+
   
 };
 
@@ -93,11 +99,12 @@ static bool make_token(char *e) {
           return false;
 
         switch (rules[i].token_type) {
-          case TK_NUM:           
+          case TK_NUM: case TK_HEX: case TK_REG:         
             if(substr_len>31)
               return false;
             strncpy(tokens[nr_token].str,substr_start,substr_len);
             tokens[nr_token].str[substr_len] = '\0';
+
           default: 
             tokens[nr_token].type=rules[i].token_type;
             nr_token++;
@@ -169,7 +176,18 @@ int eval(int p,int q, bool *success){
   }
   if(p == q){
     // Log("find a number %s", tokens[p].str);
-    return atoi(tokens[p].str);
+    int res;
+    switch(tokens[p].type){
+      case TK_NUM: sscanf(tokens[p].str,"%d",&res); break;
+      case TK_HEX: sscanf(tokens[p].str,"%x",&res); break;
+      case TK_REG: 
+      {
+        res = isa_reg_str2val(tokens[p].str+1,success);
+        if(*success==false)
+          return 0;
+      }
+    }
+    return res;
   }
   else if(check_parentheses(p,q)==true){
     return eval(p+1,q-1,success);
