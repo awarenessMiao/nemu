@@ -66,6 +66,16 @@ static int cmd_x(char* args){
   return 0;
 }
 
+static int cmd_p(char* args){
+  bool success;
+  int ret=expr(args,&success);
+  if(success==true)
+    printf("the value is %d\n", ret);
+  else
+    printf("invalid expression!");
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -77,7 +87,7 @@ static struct {
     {"si", "execute steps cmd", cmd_si},
     {"info", "prinf status of cpu", cmd_info},
     {"x","scan the memory", cmd_x},
-
+    {"p","get value of an expression",cmd_p},
 /* TODO: Add more commands */
 };
 
