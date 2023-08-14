@@ -44,7 +44,7 @@ static inline void gen_rand_expr() {
     gen('1');
     return;
   }
-  switch(choose(3))
+  switch(choose(5))
   {
     case 0:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
     case 1:gen('(');gen_rand_expr();gen(')');break;
