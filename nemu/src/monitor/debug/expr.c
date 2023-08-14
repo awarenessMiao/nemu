@@ -159,7 +159,7 @@ int find_main_op(int p,int q){
   return op;
 }
 
-word_t eval(int p,int q, bool *success){
+int eval(int p,int q, bool *success){
   *success = true;
   if (p > q || (p == q && tokens[p].type != TK_NUM)) {
     *success = false;
@@ -176,8 +176,8 @@ word_t eval(int p,int q, bool *success){
     int op = find_main_op(p,q);
     int op_type=tokens[op].type;
     bool success1,success2;
-    word_t val1 = eval(p,op-1,&success1);
-    word_t val2 = eval(op+1,q,&success2);
+    int val1 = eval(p,op-1,&success1);
+    int val2 = eval(op+1,q,&success2);
     if (success1 == false || success2 == false) {
       *success = false;
       return 0;
