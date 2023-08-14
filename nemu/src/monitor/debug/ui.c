@@ -85,7 +85,7 @@ static int cmd_ptest(char*args){
   {
     if(fscanf(fp,"%u %s", &res, exprr));
     cmd_p(exprr);
-    printf("number %d test, res = %u\n",i,res);
+    printf("number %d test, res = %u\n",i+1,res);
     printf("####################\n");
   }
   fclose(fp);
