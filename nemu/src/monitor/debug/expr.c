@@ -156,7 +156,7 @@ int find_main_op(int p,int q){
   return op==-1?ops[nr_ops-1]:op;
 }
 
-int eval(int p,int q){
+word_t eval(int p,int q){
   Assert(p <= q, "invalid expression:too");
   if(p == q){
     Assert(tokens[p].type == TK_NUM, "not a number");
@@ -168,8 +168,8 @@ int eval(int p,int q){
   else{
     int op = find_main_op(p,q);
     int op_type=tokens[op].type;
-    int val1 = eval(p,op-1);
-    int val2 = eval(op+1,q);
+    word_t val1 = eval(p,op-1);
+    word_t val2 = eval(op+1,q);
     switch(op_type){
       case '+': return val1 + val2;
       case '-': return val1 - val2;
@@ -188,9 +188,7 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 
-  int evaluation=eval(0,nr_token-1);
+  word_t evaluation=eval(0,nr_token-1);
   *success = true;
   return evaluation;
-
-  return 0;
 }

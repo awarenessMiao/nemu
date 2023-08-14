@@ -68,9 +68,9 @@ static int cmd_x(char* args){
 
 static int cmd_p(char* args){
   bool success;
-  int ret=expr(args,&success);
+  word_t ret=expr(args,&success);
   if(success==true)
-    printf("the value is %d\n", ret);
+    printf("the value is %u\n", ret);
   else
     printf("invalid expression!");
   return 0;
@@ -79,7 +79,7 @@ static int cmd_p(char* args){
 static int cmd_ptest(char*args){
   FILE *fp = fopen("tools/gen-expr/input", "r");
   assert(fp != NULL);
-  uint32_t res;
+  word_t res;
   char exprr[1000];
   for(int i=0;i<100;i++)
   {
