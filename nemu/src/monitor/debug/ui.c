@@ -84,13 +84,13 @@ static int cmd_ptest(char*args){
   int cnt = 0;
   while (fscanf(fp,"%u %s", &res, testexpr) == 2)
   {
-    bool success;
-    word_t res_nemu=expr(testexpr,&success);
+    bool valid;
+    word_t res_nemu=expr(testexpr,&valid);
     cnt++;
-    if (success && (res != res_nemu))
-      printf("\033[34m[Test %03d]: %s, result=%u, nemu=%u, expr=%s\n", cnt, "\033[31m   fail\033[34m", res, res_nemu, testexpr);
-    // else
-    //   printf("\033[34m[Test %03d]: %s, result=%u, nemu=%u, expr=%s\n", cnt++, "\033[32msuccess\033[34m", res, res_nemu, testexpr);
+    char *success="\033[32msuccess\033[34m", *fail="\033[31m   fail\033[34m", *invalid="\033[33minvalid\033[33m";
+    char *status= (res != res_nemu) ? (valid ? fail : invalid) : success;
+    if (res != res_nemu)
+      printf("\033[34m[Test %03d]: %s, result=%u, nemu=%u, expr=%s\n", cnt, status, res, res_nemu, testexpr);
     printf("\033[0m");
   }
   fclose(fp);
