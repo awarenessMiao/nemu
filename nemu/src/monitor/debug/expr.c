@@ -152,7 +152,7 @@ int find_main_op(int p,int q){
     // printf("%c ",tokens[ops[i]].type);
   }
   // printf("#\n");
-  // Log("find main op %c", tokens[op].type);
+  Log("find main op %c", tokens[op].type);
   return op==-1?ops[nr_ops-1]:op;
 }
 
