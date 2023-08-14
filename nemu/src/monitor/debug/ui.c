@@ -89,7 +89,7 @@ static int cmd_ptest(char*args){
     cnt++;
     char *success="\033[32msuccess\033[34m", *fail="\033[31m   fail\033[34m", *invalid="\033[33minvalid\033[33m";
     char *status= (res != res_nemu) ? (valid ? fail : invalid) : success;
-    if (res != res_nemu)
+    // if (res != res_nemu)
       printf("\033[34m[Test %03d]: %s, result=%u, nemu=%u, expr=%s\n", cnt, status, res, res_nemu, testexpr);
     printf("\033[0m");
   }
