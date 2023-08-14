@@ -161,6 +161,7 @@ word_t eval(int p,int q){
   Assert(p <= q, "invalid expression:too");
   if(p == q){
     Assert(tokens[p].type == TK_NUM, "not a number");
+    Log("find a number %s", tokens[p].str);
     return atoi(tokens[p].str);
   }
   else if(check_parentheses(p,q)==true){
