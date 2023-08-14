@@ -148,6 +148,7 @@ int find_main_op(int p,int q){
     if(tokens[ops[i]].type=='+'||tokens[ops[i]].type=='-')
       op = ops[i];
   }
+  Log("find main op %c", tokens[op].type);
   return op=-1?ops[nr_ops-1]:op;
 }
 
