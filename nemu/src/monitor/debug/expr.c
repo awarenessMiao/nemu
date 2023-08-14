@@ -151,7 +151,7 @@ int find_main_op(int p,int q){
   }
   printf("#\n");
   Log("find main op %c", tokens[op].type);
-  return op=-1?ops[nr_ops-1]:op;
+  return op==-1?ops[nr_ops-1]:op;
 }
 
 int eval(int p,int q){
