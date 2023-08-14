@@ -154,7 +154,7 @@ int find_main_op(int p,int q){
   }
   op = (op == -1 ? ops[nr_ops-1] : op);
   // printf("#\n");
-  Log("find main op %c", tokens[op].type);
+  // Log("find main op %c", tokens[op].type);
   return op;
 }
 
@@ -162,7 +162,7 @@ word_t eval(int p,int q){
   Assert(p <= q, "invalid expression:too");
   if(p == q){
     Assert(tokens[p].type == TK_NUM, "not a number");
-    Log("find a number %s", tokens[p].str);
+    // Log("find a number %s", tokens[p].str);
     return atoi(tokens[p].str);
   }
   else if(check_parentheses(p,q)==true){
