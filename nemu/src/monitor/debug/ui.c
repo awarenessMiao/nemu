@@ -79,13 +79,16 @@ static int cmd_p(char* args){
 static int cmd_ptest(char*args){
   FILE *fp = fopen("tools/gen-expr/input", "r");
   assert(fp != NULL);
-  for(int i=0;i<100;i++)
+  word_t res;
+  char testexpr[1000]="";
+  int cnt = 0;
+  while (fscanf(fp,"%u %s", &res, testexpr) == 2)
   {
-    word_t res;
-    char exprr[1000];
-    if(fscanf(fp,"%u %s", &res, exprr));
-    cmd_p(exprr);
-    printf("number %d test, res = %u\n",i+1,res);
+    bool success;
+    word_t res_nemu=expr(testexpr,&success);
+    Log("Test %03d: %s, result=%u, nemu=%u, expr=%s", cnt++, res == res_nemu ? "success" : "   fail", res, res_nemu, testexpr);
+    // cmd_p(exprr);
+    // printf("number %d test, res = %u\n",i+1,res);
     printf("####################\n");
   }
   fclose(fp);
