@@ -40,10 +40,10 @@ void gen_rand_op(){
 }
 
 static inline void gen_rand_expr() {
-  // if(strlen(buf)>100) {
-  //   gen('1');
-  //   return;
-  // }
+  if(strlen(buf)>256) {
+    gen('1');
+    return;
+  }
   switch(choose(3))
   {
     case 0:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
