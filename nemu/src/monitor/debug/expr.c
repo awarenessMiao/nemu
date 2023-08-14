@@ -77,8 +77,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -152,7 +152,7 @@ int find_main_op(int p,int q){
     // printf("%c ",tokens[ops[i]].type);
   }
   // printf("#\n");
-  Log("find main op %c", tokens[op].type);
+  // Log("find main op %c", tokens[op].type);
   return op==-1?ops[nr_ops-1]:op;
 }
 
