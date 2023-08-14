@@ -183,7 +183,7 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   
-  int p=0;int q=nr_token;
+  int p=0;int q=nr_token-1;
   int evaluation=eval(p,q);
   *success = true;
   return evaluation;
