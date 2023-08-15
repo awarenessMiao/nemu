@@ -67,6 +67,11 @@ static int cmd_x(char* args){
 }
 
 static int cmd_p(char* args){
+  if(args==NULL)
+  {
+    printf("please enter an expresion!");
+    return 0;
+  }
   bool success;
   word_t ret=expr(args,&success);
   if(success==true)
