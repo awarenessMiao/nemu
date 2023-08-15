@@ -74,8 +74,10 @@ static int cmd_p(char* args){
   }
   bool success;
   word_t ret=expr(args,&success);
-  if(success==true)
+  if(success==true) {
     printf("the value is %u\n", ret);
+    printf("the hex is %x\n", ret);
+  }
   else
     printf("invalid expression!\n");
   return 0;
