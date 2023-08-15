@@ -1,5 +1,5 @@
 #include <isa.h>
-
+#include <memory/vaddr.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -8,7 +8,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NUM , TK_HEX ,
-  TK_REG , TK_AND , TK_NEQ
+  TK_REG , TK_AND , TK_NEQ ,TK_DEREF
 
   /* TODO: Add more token types */
 
@@ -71,7 +71,22 @@ typedef struct token {
 static Token tokens[NUM_TOKENS] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
-static bool make_token(char *e) {
+// only includes +-*/ == != && 
+// not includes $ *(refers to引用)
+int get_priority(int op_type) {
+  switch (op_type) {
+    case TK_DEREF: return 0;
+    case '*':case '/': return 1;
+    case '+':case '-': return 2;
+    case TK_NEQ:case TK_EQ:return 3;
+    case TK_AND:return 4;
+
+    default: return -1; 
+  }
+}
+
+// 词法分析
+static bool make_token(char *e) { 
   int position = 0;
   int i;
   regmatch_t pmatch;
@@ -109,7 +124,6 @@ static bool make_token(char *e) {
             tokens[nr_token].type=rules[i].token_type;
             nr_token++;
         }
-
         break;
       }
     }
@@ -119,7 +133,11 @@ static bool make_token(char *e) {
       return false;
     }
   }
-
+  for(int i = 0;i< nr_token; i++){
+    if(tokens[i].type == '*'&&(i == 0||get_priority(tokens[i-1].type)>=0
+                              ||tokens[i-1].type == '('))
+      tokens[i].type = TK_DEREF;
+  }
   return true;
 }
 
@@ -139,35 +157,32 @@ bool check_parentheses(int p,int q){
   return stack == 0;
 }
 
-int get_priority(int op_type) {
-  switch (op_type) {
-    case '*':case '/': return 0;
-    case '+':case '-': return 1;
-    case TK_NEQ:case TK_EQ:return 2;
-    case TK_AND:return 3;
-    default: return -1; 
-  }
-}
+
 
 int find_main_op(int p,int q){
   int ops[NUM_TOKENS];
   int nr_ops = 0;
-  for(int i=p;i<=q;i++){
+  for(int i = p ;i <= q ;i ++){
     if(tokens[i].type=='(')
-    {
+    { // 跨越括号
       int j=i;
       while(check_parentheses(i,j)!=true)
         j++;
       i=j;
     }
-    else if(get_priority(tokens[i].type)>=0)
+    else if(get_priority(tokens[i].type)>=0) 
+    // use priority func to match operator, >=0 is an op
     {
+      // store the position of the operator in token
       ops[nr_ops++]=i;
     }
   }
-  int op=0;
-  for(int i=0;i<nr_ops;i++){
-    if(get_priority(tokens[ops[i]].type)>=get_priority(tokens[op].type))
+  int op = 0;
+  for(int i = 0;i<nr_ops;i++){
+    if(get_priority(tokens[ops[i]].type)>get_priority(tokens[op].type))
+      op=ops[i];
+    if(get_priority(tokens[ops[i]].type) == get_priority(tokens[op].type)
+    &&get_priority(tokens[op].type) >0)
       op=ops[i];
     // printf("%c ",tokens[ops[i]].type);
   }
@@ -176,6 +191,7 @@ int find_main_op(int p,int q){
   return op;
 }
 
+// 语法分析
 int eval(int p,int q, bool *success){
   *success = true;
   if (p > q) {
@@ -202,9 +218,17 @@ int eval(int p,int q, bool *success){
   else if(check_parentheses(p,q)==true){
     return eval(p+1,q-1,success);
   }
+  // else if(tokens[p].type == TK_DEREF){
+  //   vaddr_t addr = eval(p+1,q,success);
+  //   return vaddr_read(addr,4);
+  // }
   else{
     int op = find_main_op(p,q);
-    int op_type=tokens[op].type;
+    int op_type = tokens[op].type;
+    if(op_type == TK_DEREF){ 
+      vaddr_t addr = eval(op+1,q,success);
+      return vaddr_read(addr,4);
+    }
     bool success1,success2;
     int val1 = eval(p,op-1,&success1);
     int val2 = eval(op+1,q,&success2);
@@ -234,6 +258,8 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+
+
   word_t evaluation=eval(0,nr_token-1,success);
   return evaluation;
 }
