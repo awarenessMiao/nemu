@@ -114,6 +114,7 @@ static bool make_token(char *e) {
           return false;
 
         switch (rules[i].token_type) {
+          case TK_NOTYPE: break;
           case TK_NUM: case TK_HEX: case TK_REG:         
             if(substr_len>31)
               return false;
