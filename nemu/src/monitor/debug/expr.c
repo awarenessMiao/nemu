@@ -139,8 +139,17 @@ bool check_parentheses(int p,int q){
   return stack == 0;
 }
 
+int get_priority(int op_type) {
+  switch (op_type) {
+    case '*':case '/': return 0;
+    case '+':case '-': return 1;
+    case TK_NEQ:case TK_EQ:return 2;
+    case TK_AND:return 3;
+    default: return -1; 
+  }
+}
+
 int find_main_op(int p,int q){
-  int op = -1;
   int ops[NUM_TOKENS];
   int nr_ops = 0;
   for(int i=p;i<=q;i++){
@@ -151,18 +160,17 @@ int find_main_op(int p,int q){
         j++;
       i=j;
     }
-    else if(tokens[i].type=='+'||tokens[i].type=='-'||
-    tokens[i].type=='*'||tokens[i].type=='/')
+    else if(get_priority(tokens[i].type)>=0)
     {
       ops[nr_ops++]=i;
     }
   }
+  int op=0;
   for(int i=0;i<nr_ops;i++){
-    if(tokens[ops[i]].type=='+'||tokens[ops[i]].type=='-')
-      op = ops[i];
+    if(get_priority(tokens[ops[i]].type)>=get_priority(tokens[op].type))
+      op=ops[i];
     // printf("%c ",tokens[ops[i]].type);
   }
-  op = (op == -1 ? ops[nr_ops-1] : op);
   // printf("#\n");
   Log("find main op %c", tokens[op].type);
   return op;
@@ -209,6 +217,9 @@ int eval(int p,int q, bool *success){
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': if (val2 != 0) return val1 / val2;
+      case TK_AND: return val1&&val2;
+      case TK_EQ: return val1==val2;
+      case TK_NEQ: return val1!=val2;
       default:
         *success = false;
         return 0;
