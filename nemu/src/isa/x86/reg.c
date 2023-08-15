@@ -49,23 +49,17 @@ void isa_reg_display() {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  *success = true;
   for(int i = 0; i < 8; i++){
     if(strcmp(regsl[i],s)==0)
-    {
-      *success = true;
       return cpu.gpr[i]._32;
-    }
     else if(strcmp(regsw[i],s)==0)
-    {
-      *success = true;
       return cpu.gpr[i]._16;
-    }
     else if(strcmp(regsb[i],s)==0)
-    {
-      *success = true;
       return cpu.gpr[i % 4]._8[i < 4 ? 0 : 1];
-    }
   }
+  if (strcmp("pc",s) == 0)
+    return cpu.pc;
   *success = false;
   return 0;
 }
