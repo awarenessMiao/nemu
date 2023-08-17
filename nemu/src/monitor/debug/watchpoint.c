@@ -57,7 +57,7 @@ void free_WP(WP *node) {
 int query_WP(int nemu_state) {
   WP* p = head;
   if(p == NULL){
-    printf("no watchpoint");
+    printf("no watchpoint\n");
     return nemu_state;
   }
   bool success;
