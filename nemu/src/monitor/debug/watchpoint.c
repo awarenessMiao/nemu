@@ -62,7 +62,7 @@ int query_WP() {
     return nemu_state;
   }
   bool success;
-  while(p->next != NULL){
+  while(p != NULL){
     word_t cur_value = expr(p->expr, &success);
     printf("No %d watchpoint is checked,pre-value is %x, current value is %x\n",
             p->NO,p->value,cur_value);
