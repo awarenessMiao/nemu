@@ -15,7 +15,8 @@ typedef struct watchpoint {
 } WP;
 
 WP* new_WP();
-void free_WP(WP *node);
+void delete_WP(int NO);
 int query_WP(int nemu_state);
+void print_WP();
 
 #endif

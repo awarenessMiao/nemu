@@ -75,3 +75,11 @@ int query_WP(int nemu_state) {
   }
   return nemu_state;
 }
+
+void print_WP() {
+
+}
+
+void delete_WP(int NO) {
+  
+}

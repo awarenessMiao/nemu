@@ -53,13 +53,22 @@ static int cmd_info(char* args){
     return 0;
   if(args[0]=='r')
     isa_reg_display();  
+  if(args[1]=='w')
+    print_WP();
   return 0;
 }
 
 static int cmd_x(char* args){
+  char *len_str = strtok(args, " ");
+  char *expr_str = len_str + strlen(len_str) + 1;
   int len;
-  vaddr_t addr;
-  sscanf(args, "%d %x",&len, &addr);
+  sscanf(len_str, "%d", &len);
+  bool success;
+  vaddr_t addr = expr(expr_str, &success);
+  if (!success) {
+    printf("invalid expression\n");
+    return 0;
+  }
   for (int i=0; i<len;i++)
     printf("%02x ",vaddr_read(addr+i, 1));
   printf("\n");
@@ -119,6 +128,13 @@ static int cmd_w(char* args){
   return 0;
 }
 
+static int cmd_d(char* args) {
+  if (args==NULL)
+    return 0;
+  delete_WP(atoi(args));
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -133,6 +149,7 @@ static struct {
     {"p","get value of an expression",cmd_p},
     {"ptest","test the ceshi examples",cmd_ptest},
     {"w","set watchpoint",cmd_w},
+    {"d","delete watchpoint",cmd_d}
 /* TODO: Add more commands */
 };
 
