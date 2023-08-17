@@ -57,14 +57,14 @@ void free_WP(WP *node) {
 int query_WP(int nemu_state) {
   WP* p = head;
   if(p == NULL){
-    printf("no watchpoint\n");
+    // printf("no watchpoint\n");
     return nemu_state;
   }
   bool success;
   while(p != NULL){
     word_t cur_value = expr(p->expr, &success);
-    printf("No %d watchpoint is checked,pre-value is %x, current value is %x\n",
-            p->NO,p->value,cur_value);
+    // printf("No %d watchpoint is checked,pre-value is %x, current value is %x\n",
+    //         p->NO,p->value,cur_value);
     if(cur_value != p->value){
       printf("No %d watchpoint is changed,pre-value is %x, current value is %x\n",
             p->NO,p->value,cur_value);
