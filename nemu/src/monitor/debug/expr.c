@@ -100,8 +100,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -183,12 +183,12 @@ int find_main_op(int p,int q){
     if(get_priority(tokens[ops[i]].type)>get_priority(tokens[op].type))
       op=ops[i];
     if(get_priority(tokens[ops[i]].type) == get_priority(tokens[op].type)
-    &&get_priority(tokens[op].type) >0)
+        &&get_priority(tokens[op].type) >0)
       op=ops[i];
     // printf("%c ",tokens[ops[i]].type);
   }
   // printf("#\n");
-  Log("find main op %c", tokens[op].type);
+  // Log("find main op %c", tokens[op].type);
   return op;
 }
 
@@ -200,7 +200,7 @@ int eval(int p,int q, bool *success){
     return 0;
   }
   if(p == q){
-    Log("find a number %s", tokens[p].str);
+    // Log("find a number %s", tokens[p].str);
     int res;
     switch(tokens[p].type){
       case TK_NUM: sscanf(tokens[p].str,"%d",&res); break;
