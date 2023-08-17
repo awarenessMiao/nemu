@@ -58,7 +58,7 @@ int query_WP() {
   WP* p = head;
   int nemu_state = NEMU_RUNNING;
   if(p == NULL){
-    // printf("no watchpoint");
+    printf("no watchpoint");
     return nemu_state;
   }
   bool success;
