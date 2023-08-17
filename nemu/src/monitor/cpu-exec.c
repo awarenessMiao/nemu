@@ -89,6 +89,9 @@ void cpu_exec(uint64_t n) {
     asm_print(this_pc, seq_pc - this_pc, n < MAX_INSTR_TO_PRINT);
 
     /* TODO: check watchpoints here. */
+    int query_WP();
+    nemu_state.state = query_WP();
+
 #endif
 
 #ifdef HAS_IOE

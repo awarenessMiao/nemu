@@ -83,7 +83,7 @@ static int cmd_p(char* args){
   return 0;
 }
 
-static int cmd_ptest(char*args){
+static int cmd_ptest(char* args){
   FILE *fp = fopen("tools/gen-expr/input", "r");
   assert(fp != NULL);
   word_t res;
@@ -104,6 +104,21 @@ static int cmd_ptest(char*args){
   return 0;
 }
 
+static int cmd_w(char* args){
+  bool success;
+  WP *a = new_WP();
+  strcpy(a->expr, args);
+  word_t ret = expr(args,&success);
+  if(success == true) {
+    printf("the value is %u\n", ret);
+    printf("the hex is %x\n", ret);
+    a->value = ret;
+  }
+  else
+    printf("invalid expression!\n");
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -117,6 +132,7 @@ static struct {
     {"x","scan the memory", cmd_x},
     {"p","get value of an expression",cmd_p},
     {"ptest","test the ceshi examples",cmd_ptest},
+    {"w","set watchpoint",cmd_w},
 /* TODO: Add more commands */
 };
 

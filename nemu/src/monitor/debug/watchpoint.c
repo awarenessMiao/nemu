@@ -1,6 +1,8 @@
 #include "watchpoint.h"
 #include "expr.h"
 
+#include <monitor/monitor.h>
+
 #define NR_WP 32
 
 static WP wp_pool[NR_WP] = {};
@@ -20,3 +22,55 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
+void insert_WP(WP** list, WP* node){
+  node->next = *list;
+  *list = node;
+}
+
+void remove_WP(WP** list, WP* node){
+  WP* p = *list;
+  if(p == node) {
+    *list = node->next;
+    return;
+  }
+  Assert(p != NULL,"list is empty");
+  while(p->next != node){
+    p = p->next;
+    Assert(p != NULL, "node not found in list");
+  }
+  p->next = node->next;
+
+}
+
+WP* new_WP(){
+  WP *node = free_;
+  remove_WP(&free_, node);
+  insert_WP(&head, node);
+  return node;
+}
+
+void free_WP(WP *node) {
+  remove_WP(&head, node);
+  insert_WP(&free_, node);
+}
+
+int query_WP() {
+  WP* p = head;
+  int nemu_state = NEMU_RUNNING;
+  if(p == NULL){
+    // printf("no watchpoint");
+    return nemu_state;
+  }
+  bool success;
+  while(p->next != NULL){
+    word_t cur_value = expr(p->expr, &success);
+    if(cur_value != p->value){
+      printf("No %d watchpoint is changed,pre-value is %x, current value is %x\n",
+            p->NO,p->value,cur_value);
+      p->value = cur_value;
+      nemu_state = NEMU_STOP;
+    }
+    p = p->next;
+  }
+  return nemu_state;
+}
