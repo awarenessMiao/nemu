@@ -54,9 +54,8 @@ void free_WP(WP *node) {
   insert_WP(&free_, node);
 }
 
-int query_WP() {
+int query_WP(int nemu_state) {
   WP* p = head;
-  int nemu_state = NEMU_RUNNING;
   if(p == NULL){
     printf("no watchpoint");
     return nemu_state;
@@ -70,7 +69,7 @@ int query_WP() {
       printf("No %d watchpoint is changed,pre-value is %x, current value is %x\n",
             p->NO,p->value,cur_value);
       p->value = cur_value;
-      nemu_state = NEMU_STOP;
+      nemu_state = nemu_state == NEMU_RUNNING ? NEMU_STOP : nemu_state;
     }
     p = p->next;
   }

@@ -16,6 +16,6 @@ typedef struct watchpoint {
 
 WP* new_WP();
 void free_WP(WP *node);
-int query_WP();
+int query_WP(int nemu_state);
 
 #endif

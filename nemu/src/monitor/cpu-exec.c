@@ -89,8 +89,8 @@ void cpu_exec(uint64_t n) {
     asm_print(this_pc, seq_pc - this_pc, n < MAX_INSTR_TO_PRINT);
 
     /* TODO: check watchpoints here. */
-    int query_WP();
-    nemu_state.state = query_WP();
+    int query_WP(int nemu_state);
+    nemu_state.state = query_WP(nemu_state.state);
 
 #endif
 
