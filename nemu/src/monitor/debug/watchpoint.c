@@ -77,9 +77,13 @@ int query_WP(int nemu_state) {
 }
 
 void print_WP() {
-
+  for(WP *p=head; p!=NULL; p=p->next)
+    printf("No %x wp: value is %x, it watches %s",p->NO,p->value,p->expr);
 }
 
 void delete_WP(int NO) {
-  
+  for(WP *p=head; p!=NULL; p=p->next) {
+    if (p->NO==NO)
+      free_WP(p);
+  }
 }
