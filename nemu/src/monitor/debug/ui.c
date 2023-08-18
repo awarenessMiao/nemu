@@ -53,7 +53,7 @@ static int cmd_info(char* args){
     return 0;
   if(args[0]=='r')
     isa_reg_display();  
-  if(args[1]=='w')
+  if(args[0]=='w')
     print_WP();
   return 0;
 }
@@ -119,13 +119,13 @@ static int cmd_w(char* args){
   strcpy(a->expr, args);
   word_t ret = expr(args,&success);
   if(success == true) {
-    printf("the value is %u\n", ret);
-    printf("the hex is %x\n", ret);
+    printf("NO %d: the value is %u\n", a->NO, ret);
+    printf("NO %d: the hex is %x\n", a->NO, ret);
     a->value = ret;
   }
   else
     printf("invalid expression!\n");
-  
+
   print_WP();
   return 0;
 }
