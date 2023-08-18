@@ -126,7 +126,7 @@ static int cmd_w(char* args){
   else
     printf("invalid expression!\n");
 
-  print_WP();
+  // print_WP();
   return 0;
 }
 
