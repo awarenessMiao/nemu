@@ -42,7 +42,7 @@ static inline void fetch_decode_exec(DecodeExecState *s) {
     // IDEX (0b01100, R, op)
     IDEX (0b00101, U, auipc)
     IDEX (0b01101, U, lui)
-    IDEX (0b11011, J, jal)
+    // IDEX (0b11011, J, jal)
     // IDEX (0b11001, I, jalr)
     // IDEX (0b11000, B, branch)
     EX   (0b11010, nemu_trap)
