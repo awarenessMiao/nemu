@@ -8,14 +8,14 @@ enum { OP_TYPE_REG, OP_TYPE_MEM, OP_TYPE_IMM };
 
 typedef struct {
   uint32_t type;
-  int width;
+  int width; //Operand的宽度，riscv里默认是4Bytes
   union {
     uint32_t reg;
     word_t imm;
-    sword_t simm;
+    sword_t simm; //s是符号
   };
-  rtlreg_t *preg;
-  rtlreg_t val;
+  rtlreg_t *preg; // ->eax, ->imm(word_t=rtlreg_t)
+  rtlreg_t val; // useless
   char str[OP_STR_SIZE];
 } Operand;
 
