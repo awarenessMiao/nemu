@@ -39,3 +39,7 @@ static inline def_DHelper(S) {
   decode_op_i(s, id_src2, simm, true);
   decode_op_r(s, id_dest, s->isa.instr.s.rs2, true);
 }
+
+static inline def_DHelper(J){
+  // decode_op_i(s,)
+}
