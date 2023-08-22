@@ -25,8 +25,23 @@ static inline def_EHelper(store) {
 }
 
 static inline def_EHelper(op_imm) {
-  switch (s->isa.instr.s.funct3) {
+  switch (s->isa.instr.i.funct3) {
     EX   (0, addi) 
+    default: exec_inv(s);
+  }
+}
+
+static inline def_EHelper(add_sub) {
+  switch (s->isa.instr.r.funct7) {
+    EX   (0b0000000, add)
+    // EX   (0b0100000, sub) 
+    default: exec_inv(s);
+  }
+}
+
+static inline def_EHelper(op) {
+  switch (s->isa.instr.r.funct3) {
+    EX   (0, add_sub) 
     default: exec_inv(s);
   }
 }
@@ -39,8 +54,8 @@ static inline void fetch_decode_exec(DecodeExecState *s) {
   switch (s->isa.instr.i.opcode6_2) {
     IDEX (0b00000, I, load)
     IDEX (0b01000, S, store)
-    IDEX (0b00100, I, op_imm)
-    // IDEX (0b01100, R, op)
+    IDEX (0b00100, I, op_imm) //包括一系列指令，如addi，通过func3确定细分
+    IDEX (0b01100, R, op) // 也是一系列，add included
     IDEX (0b00101, U, auipc)
     IDEX (0b01101, U, lui)
     IDEX (0b11011, J, jal)
