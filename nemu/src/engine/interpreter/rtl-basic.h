@@ -147,7 +147,7 @@ static inline def_rtl(j, vaddr_t target) {
 
 static inline def_rtl(jr, rtlreg_t *target) {
   s->jmp_pc = *target;
-  printf("jump to %#x\n", s->jmp_pc);
+  Log("jump to %#x", s->jmp_pc);
   s->is_jmp = true;
 }
 
