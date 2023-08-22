@@ -33,6 +33,7 @@ static inline def_EHelper(op_imm) {
 
 
 static inline void fetch_decode_exec(DecodeExecState *s) {
+  Log("executing %#x", s->seq_pc);
   s->isa.instr.val = instr_fetch(&s->seq_pc, 4);
   Assert(s->isa.instr.i.opcode1_0 == 0x3, "Invalid instruction");
   switch (s->isa.instr.i.opcode6_2) {
