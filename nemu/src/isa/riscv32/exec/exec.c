@@ -34,7 +34,7 @@ static inline def_EHelper(op_imm) {
 static inline def_EHelper(add_sub) {
   switch (s->isa.instr.r.funct7) {
     EX   (0b0000000, add)
-    // EX   (0b0100000, sub) 
+    EX   (0b0100000, sub) 
     default: exec_inv(s);
   }
 }
