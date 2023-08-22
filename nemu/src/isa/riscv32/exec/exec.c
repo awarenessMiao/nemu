@@ -26,8 +26,10 @@ static inline def_EHelper(store) {
 
 static inline def_EHelper(op_imm) {
   switch (s->isa.instr.i.funct3) {
-    EX   (0, addi) 
-    default: exec_inv(s);
+    EX   (0, addi)
+    // EX   (3, sltiu)
+  default:
+    exec_inv(s);
   }
 }
 

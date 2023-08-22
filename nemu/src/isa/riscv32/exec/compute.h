@@ -8,6 +8,10 @@ static inline def_EHelper(addi){
   print_asm_template3(addi);
 }
 
+// static inline def_EHelper(sltiu){
+
+// }
+
 static inline def_EHelper(add){
   rtl_add(s, ddest, dsrc1, dsrc2);
   print_asm_template3(add);
