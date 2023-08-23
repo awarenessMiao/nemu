@@ -8,9 +8,10 @@ static inline def_EHelper(addi){
   print_asm_template3(addi);
 }
 
-// static inline def_EHelper(sltiu){
-
-// }
+static inline def_EHelper(sltiu){
+  rtl_setrelopi(s, RELOP_LTU, ddest, dsrc1, id_src2->imm);
+  print_asm_template3(sltiu);
+}
 
 static inline def_EHelper(add){
   rtl_add(s, ddest, dsrc1, dsrc2);
