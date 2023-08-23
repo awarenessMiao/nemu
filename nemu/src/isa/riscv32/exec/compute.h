@@ -29,3 +29,6 @@ static inline def_EHelper(auipc){
   print_asm_template2(auipc);
 }
 
+static inline def_EHelper(srai){
+  
+}

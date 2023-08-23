@@ -28,6 +28,7 @@ static inline def_EHelper(op_imm) {
   switch (s->isa.instr.i.funct3) {
     EX   (0, addi)
     EX   (3, sltiu)
+    EX   (5, srai)
   default:
     exec_inv(s);
   }
