@@ -24,13 +24,19 @@ static inline def_EHelper(store) {
   }
 }
 
+static inline def_EHelper(srli_srai){
+  switch(s->isa.instr.r.funct7){
+    EX   (0b0100000, srai)
+    default: exec_inv(s);
+  }
+}
+
 static inline def_EHelper(op_imm) {
   switch (s->isa.instr.i.funct3) {
     EX   (0, addi)
     EX   (3, sltiu)
-    EX   (5, srai)
-  default:
-    exec_inv(s);
+    EX   (5, srli_srai)
+  default: exec_inv(s);
   }
 }
 
