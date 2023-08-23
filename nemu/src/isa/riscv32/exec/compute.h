@@ -8,6 +8,11 @@ static inline def_EHelper(addi){
   print_asm_template3(addi);
 }
 
+static inline def_EHelper(andi){
+  rtl_andi(s, ddest, dsrc1, id_src2->simm);
+  print_asm_template3(andi);
+}
+
 static inline def_EHelper(sltiu){
   rtl_setrelopi(s, RELOP_LTU, ddest, dsrc1, id_src2->imm);
   print_asm_template3(sltiu);

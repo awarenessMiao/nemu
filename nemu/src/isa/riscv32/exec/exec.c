@@ -36,6 +36,7 @@ static inline def_EHelper(op_imm) {
     EX   (0, addi)
     EX   (3, sltiu)
     EX   (5, srli_srai)
+    EX   (7, andi)
   default: exec_inv(s);
   }
 }
