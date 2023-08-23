@@ -48,6 +48,13 @@ static inline def_EHelper(op) {
   }
 }
 
+static inline def_EHelper(branch){
+  switch(s->isa.instr.b.funct3){
+    EX   (0, beq)
+
+  }
+}
+
 
 static inline void fetch_decode_exec(DecodeExecState *s) {
   Log("executing %#x", s->seq_pc);
@@ -62,7 +69,7 @@ static inline void fetch_decode_exec(DecodeExecState *s) {
     IDEX (0b01101, U, lui)
     IDEX (0b11011, J, jal)
     IDEX (0b11001, I, jalr)
-    // IDEX (0b11000, B, branch)
+    IDEX (0b11000, B, branch)
     EX   (0b11010, nemu_trap)
     default: exec_inv(s);
   }
