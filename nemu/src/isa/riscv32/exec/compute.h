@@ -23,6 +23,11 @@ static inline def_EHelper(add){
   print_asm_template3(add);
 }
 
+static inline def_EHelper(and){
+  rtl_and(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(and);
+}
+
 static inline def_EHelper(sub){
   rtl_sub(s, ddest, dsrc1, dsrc2);
   print_asm_template3(sub);
@@ -47,3 +52,4 @@ static inline def_EHelper(srai){
   rtl_sar(s, ddest, dsrc1, s1);
   print_asm_template3(srai);
 }
+

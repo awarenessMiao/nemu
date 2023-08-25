@@ -53,6 +53,7 @@ static inline def_EHelper(op) {
   switch (s->isa.instr.r.funct3) {
     EX   (0, add_sub) 
     EX   (1, sll)
+    EX   (7, and)
     default: exec_inv(s);
   }
 }
