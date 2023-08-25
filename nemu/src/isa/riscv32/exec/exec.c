@@ -56,6 +56,7 @@ static inline def_EHelper(op) {
     EX   (0, add_sub) 
     EX   (1, sll)
     EX   (3, sltu)
+    EX   (4, xor)
     EX   (6, or)
     EX   (7, and)
     default: exec_inv(s);
