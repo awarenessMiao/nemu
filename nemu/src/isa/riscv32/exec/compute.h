@@ -33,6 +33,11 @@ static inline def_EHelper(sltu){
   print_asm_template3(sltu);
 }
 
+static inline def_EHelper(slt){
+  rtl_setrelop(s, RELOP_LT, ddest, dsrc1, dsrc2);
+  print_asm_template3(slt);
+}
+
 static inline def_EHelper(add){
   rtl_add(s, ddest, dsrc1, dsrc2);
   print_asm_template3(add);
