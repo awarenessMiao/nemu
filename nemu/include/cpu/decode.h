@@ -12,9 +12,9 @@ typedef struct {
   union {
     uint32_t reg;
     word_t imm;
-    sword_t simm; //s是符号
+    sword_t simm; //s是符号 ->imm
   };
-  rtlreg_t *preg; // ->eax, ->imm(word_t=rtlreg_t)
+  rtlreg_t *preg; // ->rs1
   rtlreg_t val; // useless
   char str[OP_STR_SIZE];
 } Operand;

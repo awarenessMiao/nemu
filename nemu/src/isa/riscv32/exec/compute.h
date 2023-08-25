@@ -28,6 +28,13 @@ static inline def_EHelper(sub){
   print_asm_template3(sub);
 }
 
+static inline def_EHelper(sll){
+  rtl_li(s, s1, *dsrc2);
+  rtl_andi(s, s0, dsrc2, 0b11111);
+  rtl_shl(s, ddest, dsrc1, s0);
+  print_asm_template3(sll);
+}
+
 static inline def_EHelper(auipc){
   rtl_li(s, s0, cpu.pc);
   rtl_addi(s, ddest, s0, id_src1->imm);
