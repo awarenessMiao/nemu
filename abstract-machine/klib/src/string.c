@@ -66,12 +66,12 @@ void* memcpy(void* out, const void* in, size_t n) {
 int memcmp(const void* s1, const void* s2, size_t n) {
   for (int i = 0; i < n; i++){
     if (((const unsigned char *)s1)[i] < ((const unsigned char *)s2)[i]){
-      return -1;
       putch('<');
+      return -1;
     }
     if (((const unsigned char *)s1)[i] > ((const unsigned char *)s2)[i]){
-      return 1;
       putch('>');
+      return 1;
     }
   }
   return 0;
