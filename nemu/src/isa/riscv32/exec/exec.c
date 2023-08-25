@@ -82,12 +82,12 @@ static inline def_EHelper(op_muldiv) {
   switch (s->isa.instr.r.funct3) {
     EX   (0, mul)
     EX   (1, mulh)
-    // EX   (2, mulhsu)
-    // EX   (3, mulhu)
+    EX   (2, mulhsu)
+    EX   (3, mulhu)
     EX   (4, div)
-    // EX   (5, divu)
+    EX   (5, divu)
     EX   (6, rem)
-    // EX   (7, remu)
+    EX   (7, remu)
     default: exec_inv(s);
   }
 }
