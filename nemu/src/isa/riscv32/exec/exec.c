@@ -53,6 +53,14 @@ static inline def_EHelper(add_sub) {
   }
 }
 
+static inline def_EHelper(srl_sra){
+  switch(s->isa.instr.r.funct7){
+    EX   (0b0100000, sra)
+    EX   (0b0000000, srl)
+    default: exec_inv(s);
+  }
+}
+
 static inline def_EHelper(op_base) {
   switch (s->isa.instr.r.funct3) {
     EX   (0, add_sub) 
@@ -60,6 +68,7 @@ static inline def_EHelper(op_base) {
     EX   (2, slt)
     EX   (3, sltu)
     EX   (4, xor)
+    EX   (5, srl_sra)
     EX   (6, or)
     EX   (7, and)
     default: exec_inv(s);
