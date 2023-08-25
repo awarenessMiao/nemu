@@ -64,6 +64,8 @@ def_rtl_compute_reg(div_r)
 def_rtl_compute_reg(idiv_q)
 def_rtl_compute_reg(idiv_r)
 
+def_rtl_compute_reg(mul_hsu)
+
 #ifdef ISA64
 def_rtl_compute_reg(mulw)
 def_rtl_compute_reg(divw)
