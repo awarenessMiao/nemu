@@ -3,6 +3,11 @@ static inline def_EHelper(mul){
   print_asm_template3(mul);
 }
 
+static inline def_EHelper(mulh){
+  rtl_imul_hi(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(mulh);
+}
+
 static inline def_EHelper(div){
   if (*dsrc2 == 0)
     rtl_li(s, ddest, 0xFFFFFFFF);
