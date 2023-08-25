@@ -21,3 +21,9 @@ static inline def_EHelper(beq){
     rtl_jrelop(s, RELOP_EQ, dsrc1, dsrc2, tmp);
     print_asm_template3(beq);
 }
+
+static inline def_EHelper(bne){
+    vaddr_t tmp = id_dest->simm + cpu.pc;
+    rtl_jrelop(s, RELOP_NE, dsrc1, dsrc2, tmp);
+    print_asm_template3(bne);
+}

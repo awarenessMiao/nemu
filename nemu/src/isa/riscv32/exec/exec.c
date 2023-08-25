@@ -63,6 +63,7 @@ static inline def_EHelper(op) {
 static inline def_EHelper(branch){
   switch(s->isa.instr.b.funct3){
     EX   (0, beq)
+    EX   (1, bne)
     default: exec_inv(s);
   }
 }
