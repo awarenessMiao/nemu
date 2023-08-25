@@ -14,37 +14,53 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-
-  return NULL;
+  return memmove(dst, src, strlen(src)+1);
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
-  return NULL;
+  int len = strlen(src) + 1;
+  return memmove(dst, src, n < len ? n : len);
 }
 
 char* strcat(char* dst, const char* src) {
-  return NULL;
+  strcpy(dst + strlen(dst), src);
+  return dst;
 }
 
 int strcmp(const char* s1, const char* s2) {
-  return 0;
+  int len1 = strlen(s1), len2 = strlen(s2);
+  // int min_len = strlen(s1) > strlen(s2) ? strlen(s2) : strlen(s1);
+  return strncmp(s1, s2, len1 < len2 ? len1 : len2);
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
-  return 0;
+  return memcmp(s1, s2, n);
 }
 
 void* memset(void* v,int c,size_t n) {
-  return NULL;
+  for (int i = 0; i < n;i++){
+    ((unsigned char *)v)[i] = c;
+  }
+  return v;
 }
 
 void* memmove(void* dst,const void* src,size_t n) {
-  return NULL;
+  if(src > dst){
+    for (int i = 0; i < n; i++)
+      ((unsigned char *)dst)[i] = ((const unsigned char *)src)[i];
+  }
+  if(src < dst){
+    for (int i = n-1; i >=0 ; i--)
+      ((unsigned char *)dst)[i] = ((const unsigned char *)src)[i];
+  }
+  return dst;
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  
-  return NULL;
+  for (int i = 0; i < n; i++){
+    ((unsigned char *)out)[i] = ((const unsigned char *)in)[i];
+  }
+    return out;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
