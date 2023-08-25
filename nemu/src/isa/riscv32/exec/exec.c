@@ -86,7 +86,7 @@ static inline def_EHelper(op_muldiv) {
     // EX   (3, mulhu)
     EX   (4, div)
     // EX   (5, divu)
-    // EX   (6, rem)
+    EX   (6, rem)
     // EX   (7, remu)
     default: exec_inv(s);
   }
