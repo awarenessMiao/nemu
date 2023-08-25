@@ -80,7 +80,7 @@ static inline def_EHelper(op_base) {
 
 static inline def_EHelper(op_muldiv) {
   switch (s->isa.instr.r.funct3) {
-    // EX   (0, mul)
+    EX   (0, mul)
     // EX   (1, mulh)
     // EX   (2, mulhsu)
     // EX   (3, mulhu)

@@ -114,3 +114,7 @@ static inline def_EHelper(auipc){
   print_asm_template2(auipc);
 }
 
+static inline def_EHelper(mul){
+  rtl_mul_lo(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(mul);
+}
