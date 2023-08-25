@@ -14,6 +14,7 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
+
   return NULL;
 }
 
@@ -42,10 +43,17 @@ void* memmove(void* dst,const void* src,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
+  
   return NULL;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
+  for (int i = 0; i < n; i++){
+    if (((const unsigned char *)s1)[i] < ((const unsigned char *)s2)[i])
+      return -1;
+    if (((const unsigned char *)s1)[i] > ((const unsigned char *)s2)[i])
+      return 1;
+  }
   return 0;
 }
 
