@@ -34,8 +34,20 @@ static inline def_EHelper(bge){
     print_asm_template3(bge);
 }
 
+static inline def_EHelper(bgeu){
+    vaddr_t tmp = id_dest->simm + cpu.pc;
+    rtl_jrelop(s, RELOP_GEU, dsrc1, dsrc2, tmp);
+    print_asm_template3(bgeu);
+}
+
 static inline def_EHelper(blt){
     vaddr_t tmp = id_dest->simm + cpu.pc;
     rtl_jrelop(s, RELOP_LT, dsrc1, dsrc2, tmp);
     print_asm_template3(blt);
+}
+
+static inline def_EHelper(bltu){
+    vaddr_t tmp = id_dest->simm + cpu.pc;
+    rtl_jrelop(s, RELOP_LTU, dsrc1, dsrc2, tmp);
+    print_asm_template3(bltu);
 }

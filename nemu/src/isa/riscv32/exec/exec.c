@@ -11,6 +11,8 @@ static inline def_EHelper(load) {
     EXW  (5, ld, 2) //lhu
     EXW  (4, ld, 1) //lbu
     EXW  (2, ld, 4) //lw
+    EXW  (1, lds, 2) //lh
+    EXW  (0, lds, 1) //lb
     default: exec_inv(s);
   }
 }
@@ -36,6 +38,7 @@ static inline def_EHelper(op_imm) {
   switch (s->isa.instr.i.funct3) {
     EX   (0, addi)
     EX   (1, slli)
+    EX   (2, slti)
     EX   (3, sltiu)
     EX   (4, xori)
     EX   (5, srli_srai)
@@ -96,6 +99,8 @@ static inline def_EHelper(branch){
     EX   (1, bne)
     EX   (4, blt)
     EX   (5, bge)
+    EX   (6, bltu)
+    EX   (7, bgeu)
     default: exec_inv(s);
   }
 }
