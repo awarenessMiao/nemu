@@ -34,6 +34,7 @@ static inline def_EHelper(srli_srai){
 static inline def_EHelper(op_imm) {
   switch (s->isa.instr.i.funct3) {
     EX   (0, addi)
+    EX   (1, slli)
     EX   (3, sltiu)
     EX   (4, xori)
     EX   (5, srli_srai)
@@ -51,7 +52,7 @@ static inline def_EHelper(add_sub) {
   }
 }
 
-static inline def_EHelper(op) {
+static inline def_EHelper(op_base) {
   switch (s->isa.instr.r.funct3) {
     EX   (0, add_sub) 
     EX   (1, sll)
@@ -60,6 +61,21 @@ static inline def_EHelper(op) {
     EX   (4, xor)
     EX   (6, or)
     EX   (7, and)
+    default: exec_inv(s);
+  }
+}
+
+static inline def_EHelper(op_muldiv) {
+  switch (s->isa.instr.r.funct3) {
+    default: exec_inv(s);
+  }
+}
+
+static inline def_EHelper(op) {
+  switch (s->isa.instr.r.funct7) {
+    EX   (0b0000000, op_base)
+    EX   (0b0100000, op_base)
+    EX   (0b0000001, op_muldiv)
     default: exec_inv(s);
   }
 }
