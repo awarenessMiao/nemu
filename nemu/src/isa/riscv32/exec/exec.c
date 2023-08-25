@@ -27,6 +27,7 @@ static inline def_EHelper(store) {
 static inline def_EHelper(srli_srai){
   switch(s->isa.instr.r.funct7){
     EX   (0b0100000, srai)
+    EX   (0b0000000, srli)
     default: exec_inv(s);
   }
 }

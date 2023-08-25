@@ -43,6 +43,13 @@ static inline def_EHelper(srai){
   print_asm_template3(srai);
 }
 
+static inline def_EHelper(srli){
+  rtl_li(s, s0, id_src2->simm);
+  rtl_andi(s, s1, s0, 0b11111);
+  rtl_shr(s, ddest, dsrc1, s1);
+  print_asm_template3(srli);
+}
+
 static inline def_EHelper(sltu){
   rtl_setrelop(s, RELOP_LTU, ddest, dsrc1, dsrc2);
   print_asm_template3(sltu);
