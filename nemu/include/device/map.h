@@ -13,7 +13,7 @@ typedef struct {
   paddr_t high;
   uint8_t *space;
   io_callback_t callback;
-} IOMap;
+} IOMap; 
 
 static inline bool map_inside(IOMap *map, paddr_t addr) {
   return (addr >= map->low && addr <= map->high);

@@ -23,9 +23,10 @@ void init_mem() {
 #endif
 }
 
+// 判断是否在物理内存里
 static inline bool in_pmem(paddr_t addr) {
   return (PMEM_BASE <= addr) && (addr <= PMEM_BASE + PMEM_SIZE - 1);
-}
+} 
 
 static inline word_t pmem_read(paddr_t addr, int len) {
   void *p = &pmem[addr - PMEM_BASE];
